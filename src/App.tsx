@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Footer from './components/Footer';
 import Header from './components/Header';
-import ProductCard from './components/ProductCard';
+import ProductCards from './components/ProductCards';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const queryClient = new QueryClient();
@@ -19,7 +19,7 @@ function App() {
             <main>
                 <ProductsGrid>
                     <QueryClientProvider client={queryClient}>
-                        <ProductCard />
+                        <ProductCards />
                     </QueryClientProvider>
                 </ProductsGrid>
             </main>
