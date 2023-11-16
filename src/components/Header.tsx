@@ -19,6 +19,7 @@ const CartButton = styled.button`
     font-weight: 700;
     align-items: center;
     column-gap: 15px;
+    cursor: pointer;
 `;
 
 export default function Header() {
