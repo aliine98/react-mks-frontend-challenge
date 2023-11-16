@@ -23,9 +23,9 @@ const ProductsGrid = styled.ul`
         max-width: 810px;
     }
 
-    @media screen and (min-width: 1400px) {
+    @media screen and (min-width: 1300px) {
         grid-template-columns: repeat(4, 1fr);
-        max-width: 900px;
+        max-width: 1000px;
     }
 `;
 
