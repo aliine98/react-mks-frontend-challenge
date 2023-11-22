@@ -98,7 +98,7 @@ export default function ProductCards() {
     return (
         <>
             <CartButton onClick={openCheckoutMenu}>
-                <img src='/src/assets/cart.svg' alt='cart' />
+                <img src='./cart.svg' alt='cart' />
                 {productsInCart}
             </CartButton>
             <Checkout opened={isOpen} setOpened={setIsOpen} selectedProducts={selectedProducts} setSelectedProducts={setSelectedProducts} />
@@ -118,7 +118,7 @@ export default function ProductCards() {
                             product.quantity = 1;
                             setSelectedProducts(selectedProducts?.concat(product));
                         }}>
-                        <img src='src/assets/shopping-bag.svg' alt='shopping bag' />
+                        <img src='./shopping-bag.svg' alt='shopping bag' />
                         Comprar
                     </BuyButton>
                 </Card>

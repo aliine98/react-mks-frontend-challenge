@@ -15,7 +15,7 @@ export default function Header() {
     return (
         <>
             <StyledHeader>
-                <img src='/src/assets/logo.svg' alt='MKS Sistemas logo' />
+                <img src='./logo.svg' alt='MKS Sistemas logo' />
             </StyledHeader>
         </>
     );
