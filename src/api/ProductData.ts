@@ -5,4 +5,5 @@ export type productData = {
     description: string;
     price: number;
     photo: string;
+    quantity: number;
 };
