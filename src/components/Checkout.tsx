@@ -1,6 +1,5 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { styled } from 'styled-components';
-import { ProductsContext } from './ProductCards';
 import { productData } from '../api/ProductData';
 
 const CheckoutMenu = styled.div`
@@ -138,14 +137,13 @@ const CheckoutPurchaseButton = styled.button`
 `;
 
 type CheckoutProps = {
-    opened?: boolean;
-    setOpened?: React.Dispatch<React.SetStateAction<boolean>>;
-    // products: productData[];
-    // setProducts?: React.Dispatch<React.SetStateAction<productData[]>>;
+    opened: boolean;
+    setOpened: React.Dispatch<React.SetStateAction<boolean>>;
+    selectedProducts: productData[];
+    setSelectedProducts: React.Dispatch<React.SetStateAction<productData[]>>;
 };
 
-export default function Checkout({ opened, setOpened }: CheckoutProps) {
-    const { selectedProducts, setSelectedProducts } = useContext(ProductsContext);
+export default function Checkout({ opened, setOpened, selectedProducts, setSelectedProducts }: CheckoutProps) {
     const [, setProductQuantity] = useState(1);
     const totalPrice = selectedProducts?.reduce((acc: number, p: productData) => acc + p.price * p.quantity, 0);
 

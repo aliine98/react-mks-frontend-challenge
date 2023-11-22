@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { GetProducts } from '../api/products-service';
 import Checkout from './Checkout';
-import { createContext, useState } from 'react';
+import { useState } from 'react';
 import { productData } from '../api/ProductData';
 
 const CartButton = styled.button`
@@ -75,21 +75,17 @@ const BuyButton = styled.button`
     cursor: pointer;
 `;
 
-const ProductCtxDefaultValue = {
-    products: [],
-    setProducts: () => {},
-};
+// const ProductCtxDefaultValue = {
+//     products: [],
+//     setProducts: () => {},
+// };
 
-export const ProductsContext = createContext<{
-    products: productData[] | [];
-    setProducts: React.Dispatch<React.SetStateAction<[] | productData[]>>;
-}>(ProductCtxDefaultValue);
+// export const ProductsContext = createContext(ProductCtxDefaultValue);
 
 export default function ProductCards() {
-    const [selectedProducts, setSelectedProducts] = useState<productData[] | []>(ProductCtxDefaultValue.products);
-    const value = { selectedProducts, setSelectedProducts };
+    const [selectedProducts, setSelectedProducts] = useState<productData[]>([]);
     const [isOpen, setIsOpen] = useState(false);
-    const productsInCart = selectedProducts.length;
+    const productsInCart = selectedProducts?.length;
 
     function openCheckoutMenu() {
         setIsOpen(!isOpen);
@@ -101,34 +97,32 @@ export default function ProductCards() {
 
     return (
         <>
-            <ProductsContext.Provider value={value}>
-                <CartButton onClick={openCheckoutMenu}>
-                    <img src='/src/assets/cart.svg' alt='cart' />
-                    {productsInCart}
-                </CartButton>
-                <Checkout opened={isOpen} setOpened={setIsOpen} />
-                {fetchProducts.data?.products.map((product: productData) => (
-                    <Card key={product.id}>
-                        <ProductPhoto src={product.photo} alt='' width={160} height={150} />
-                        <Wrapper>
-                            <ProductTile>
-                                {product.brand} {product.name}
-                            </ProductTile>
-                            <PriceTag>R${Number(product.price)}</PriceTag>
-                        </Wrapper>
-                        <P>{product.description}</P>
-                        <BuyButton
-                            onClick={() => {
-                                if (selectedProducts.includes(product)) return;
-                                product.quantity = 1;
-                                setSelectedProducts(selectedProducts.concat(product));
-                            }}>
-                            <img src='src/assets/shopping-bag.svg' alt='shopping bag' />
-                            Comprar
-                        </BuyButton>
-                    </Card>
-                ))}
-            </ProductsContext.Provider>
+            <CartButton onClick={openCheckoutMenu}>
+                <img src='/src/assets/cart.svg' alt='cart' />
+                {productsInCart}
+            </CartButton>
+            <Checkout opened={isOpen} setOpened={setIsOpen} selectedProducts={selectedProducts} setSelectedProducts={setSelectedProducts} />
+            {fetchProducts.data?.products.map((product: productData) => (
+                <Card key={product.id}>
+                    <ProductPhoto src={product.photo} alt='' width={160} height={150} />
+                    <Wrapper>
+                        <ProductTile>
+                            {product.brand} {product.name}
+                        </ProductTile>
+                        <PriceTag>R${Number(product.price)}</PriceTag>
+                    </Wrapper>
+                    <P>{product.description}</P>
+                    <BuyButton
+                        onClick={() => {
+                            if (selectedProducts?.includes(product)) return;
+                            product.quantity = 1;
+                            setSelectedProducts(selectedProducts?.concat(product));
+                        }}>
+                        <img src='src/assets/shopping-bag.svg' alt='shopping bag' />
+                        Comprar
+                    </BuyButton>
+                </Card>
+            ))}
         </>
     );
 }
