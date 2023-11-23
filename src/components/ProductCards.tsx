@@ -3,6 +3,7 @@ import { GetProducts } from '../api/products-service';
 import Checkout from './Checkout';
 import { useState } from 'react';
 import { productData } from '../api/ProductData';
+import Loading from './Loading';
 
 const CartButton = styled.button`
     border-radius: 8px;
@@ -92,7 +93,7 @@ export default function ProductCards() {
     }
 
     const fetchProducts = GetProducts();
-    if (fetchProducts.isPending) return 'Loading...';
+    if (fetchProducts.isPending) return <Loading />;
     if (fetchProducts.error) return 'Error';
 
     return (
