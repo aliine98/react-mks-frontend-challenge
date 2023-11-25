@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { styled } from 'styled-components';
 import { productData } from '../api/ProductData';
+import { PriceTag } from './shared/styled-components';
 
 const CheckoutMenu = styled.div`
     position: fixed;
@@ -111,15 +112,6 @@ const QuantityButton = styled.button`
         border-right: 1px solid #bfbfbf;
         border-left: none;
     }
-`;
-
-const PriceTag = styled.span`
-    background: #373737;
-    color: #fff;
-    font-weight: 700;
-    padding: 5px 7px;
-    border-radius: 5px;
-    font-size: 700;
 `;
 
 const TotalPrice = styled.h3`
