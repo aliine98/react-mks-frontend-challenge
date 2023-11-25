@@ -126,6 +126,7 @@ const CheckoutPurchaseButton = styled.button`
     border: none;
     font-size: 1.2rem;
     font-weight: 700;
+    width: 100%;
 `;
 
 type CheckoutProps = {

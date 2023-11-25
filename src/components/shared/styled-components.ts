@@ -51,6 +51,7 @@ export const BuyButton = styled.button`
     align-items: center;
     text-transform: uppercase;
     cursor: pointer;
+    width: 100%;
 `;
 
 export const PriceTag = styled.span`
