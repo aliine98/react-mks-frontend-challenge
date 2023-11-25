@@ -60,6 +60,18 @@ const CartProduct = styled.li`
     width: 80%;
     border-radius: 8px;
     position: relative;
+
+    @media screen and (min-width: 500px) {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 90%;
+
+        img {
+            width: 70px;
+            height: 70px;
+        }
+    }
 `;
 
 const DeleteButton = styled.button`
@@ -76,6 +88,10 @@ const DeleteButton = styled.button`
 
 const Title = styled.h5`
     font-weight: 500;
+
+    @media screen and (min-width: 500px) {
+        width: 100px;
+    }
 `;
 
 const QuantityInput = styled.input`
@@ -92,6 +108,10 @@ const QuantityInput = styled.input`
     &::-webkit-inner-spin-button,
     &::-webkit-outer-spin-button {
         -webkit-appearance: none;
+    }
+
+    @media screen and (min-width: 500px) {
+        width: 25px;
     }
 `;
 
@@ -111,6 +131,10 @@ const QuantityButton = styled.button`
     &.plus {
         border-right: 1px solid #bfbfbf;
         border-left: none;
+    }
+
+    @media screen and (min-width: 500px) {
+        width: 25px;
     }
 `;
 
@@ -153,7 +177,7 @@ export default function Checkout({ opened, setOpened, selectedProducts, setSelec
                             <DeleteButton onClick={() => setSelectedProducts!(selectedProducts?.filter((p: productData) => p != product))}>
                                 X
                             </DeleteButton>
-                            <img src={product.photo} width='80' height='90' alt={product.name} />
+                            <img src={product.photo} width='90' height='90' alt={product.name} />
                             <Title>
                                 {product.brand} {product.name}
                             </Title>
@@ -185,7 +209,7 @@ export default function Checkout({ opened, setOpened, selectedProducts, setSelec
                                         +
                                     </QuantityButton>
                                 </div>
-                                <PriceTag>R${Number(product.price) * product.quantity}</PriceTag>
+                                <PriceTag className='checkout-price'>R${Number(product.price) * product.quantity}</PriceTag>
                             </Wrapper>
                         </CartProduct>
                     ))}

@@ -60,5 +60,15 @@ export const PriceTag = styled.span`
     font-weight: 700;
     padding: 5px 7px;
     border-radius: 5px;
-    font-size: 700;
+    font-size: 15px;
+
+    @media screen and (min-width: 500px) {
+        &.checkout-price {
+            background: none;
+            color: #000;
+            padding: 0;
+            border-radius: 0;
+            margin-left: 1rem;
+        }
+    }
 `;
