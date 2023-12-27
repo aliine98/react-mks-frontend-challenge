@@ -25,7 +25,7 @@ export default function ProductCard({product}:{product:productData}) {
     return (
         <>
             <Card>
-                <ProductPhoto src={product.photo} alt='' width={160} height={150} />
+                <ProductPhoto src={product.photo} alt={product.name} width={160} height={150} />
                 <Wrapper>
                     <ProductTile>
                         {product.brand} {product.name}
@@ -37,6 +37,7 @@ export default function ProductCard({product}:{product:productData}) {
                 onClick={() => {
                     if (state.selectedProducts.includes(product)) return;
                     dispatch({type:'addProduct',product:product});
+                    dispatch({type:'updateProductsQty',newQty: {id:product.id,price: Number(product.price)}});
                 }}>
                     <img src='./shopping-bag.svg' alt='shopping bag' />
                     Comprar
