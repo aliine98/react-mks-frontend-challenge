@@ -95,7 +95,7 @@ Abra o servidor
 
 ## 📝 Licença
 
-![License](https://img.shields.io/github/license/aliine98/react-mks-frontend-challenge?logo=m&style=for-the-badge)
+![License](https://img.shields.io/github/license/aliine98/react-mks-frontend-challenge?logo=mit&style=for-the-badge)
 
 Feito com ❤️ por <a href="https://github.com/aliine98">Aline Bevilacqua</a>!
 
