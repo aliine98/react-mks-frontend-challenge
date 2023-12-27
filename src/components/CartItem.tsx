@@ -93,12 +93,17 @@ export default function CartItem({product}:{product: productData}) {
     const {dispatch} = useContext(StoreContext);
     const [productQty, setProductQty] = useState(1);
 
-    useEffect(() => dispatch({type:'updateProductsQty',newQty:{id:product.id,price:Number(product.price) * productQty}}),[productQty]);
+    useEffect(() => dispatch({type:'updateProductsPrices',newPrice:{id:product.id,price:Number(product.price) * productQty}}),[productQty,dispatch,product]);
+
+    function deleteProduct() {
+        dispatch({type: 'deleteProduct', product: product});
+        dispatch({type:'deleteProductPrice', product: product});
+    }
 
     return (
         <>
             <CartProduct>
-                <DeleteButton onClick={() => dispatch({ type: 'deleteProduct', product: product })}>X</DeleteButton>
+                <DeleteButton onClick={() => deleteProduct()}>X</DeleteButton>
                 <img src={product.photo} width='90' height='90' alt={product.name} />
                 <Title>
                     {product.brand} {product.name}
@@ -108,7 +113,7 @@ export default function CartItem({product}:{product: productData}) {
                         <QuantityButton
                             className='minus'
                             onClick={() => {
-                                setProductQty((productQty) => productQty - 1);
+                                if(productQty > 1) setProductQty((productQty) => productQty - 1);
                             }}>
                             -
                         </QuantityButton>

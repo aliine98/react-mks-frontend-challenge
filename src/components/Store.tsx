@@ -23,51 +23,61 @@ const CartButton = styled.button`
     z-index: 2;
 `;
 
-const StoreInitialState = {
-    selectedProducts: [],
-    isOpen: false,
-    productsQty: [],
-};
-
 type StoreCtx = {
     selectedProducts: productData[];
     isOpen: boolean;
-    productsQty: {id:number;price:number}[];
+    productsPrices: {id: number; price: number}[];
 }
 
+const StoreInitialState: StoreCtx = {
+    selectedProducts: [],
+    isOpen: false,
+    productsPrices: [],
+};
+
 type Action =
- | { type: 'addProduct',product: productData }
- | { type: 'openCloseCheckout'}
+ | {type: 'addProduct', product: productData}
+ | {type: 'openCloseCheckout'}
  | {type: 'deleteProduct', product: productData}
- | {type: 'updateProductsQty',newQty: {id:number;price:number}};
+ | {type: 'updateProductsPrices', newPrice: {id: number; price: number}}
+ | {type: 'deleteProductPrice', product: productData};
 
 export const StoreContext = createContext<{state:StoreCtx,dispatch: React.Dispatch<Action>}>({state:StoreInitialState, dispatch: () => {}});
 
-function reducer(state: StoreCtx, action: Action) {
+function reducer(state: StoreCtx, action: Action): StoreCtx {
     switch (action.type) {
-        case 'addProduct':
+        case 'addProduct': {
             return {...state,
                 selectedProducts: state.selectedProducts.concat(action.product)
             };
-        case 'openCloseCheckout':
+        }
+        case 'openCloseCheckout': {
             return {...state,
                 isOpen: !state.isOpen
             };
-        case 'deleteProduct':
+        }
+        case 'deleteProduct': {
             return {...state,
                 selectedProducts: state.selectedProducts.filter((p: productData) => p != action.product)
             };
-        case 'updateProductsQty':
-            if(state.productsQty.every(p => p.id !== action.newQty.id)) {
-                return {...state,productsQty: [...state.productsQty,action.newQty]};
+        }
+        case 'updateProductsPrices': {
+            if(state.productsPrices.every(p => p.id !== action.newPrice.id)) {
+                return {...state,productsPrices: [...state.productsPrices,action.newPrice]};
             }
-            state.productsQty.map((product:{id:number,price:number}) => {
-                if(product.id === action.newQty.id) {
-                    // Object.defineProperty(product,'price',{value:action.newQty.price});
-                    product.price = action.newQty.price;
+            state.productsPrices.map((product:{id:number,price:number}) => {
+                if(product.id === action.newPrice.id) {
+                    // Object.defineProperty(product,'price',{value:action.newPrice.price});
+                    product.price = action.newPrice.price;
                 }
             });
-            return {...state,productsQty: [...state.productsQty]};
+            return {...state, productsPrices: [...state.productsPrices]};
+        }
+        case 'deleteProductPrice': {
+            return {...state,
+                productsPrices: state.productsPrices.filter((price) => price.id != action.product.id)
+            };
+        }
     }
 }
 
@@ -75,17 +85,13 @@ export default function Store() {
     const [state,dispatch] = useReducer(reducer,StoreInitialState);
     const productsInCart = state.selectedProducts?.length;
 
-    function openCheckoutMenu() {
-        dispatch({type: 'openCloseCheckout'});
-    }
-
     const fetchProducts = GetProducts();
     if (fetchProducts.isPending) return <Loading />;
     if (fetchProducts.error) return 'Error';
 
     return (
         <>
-            <CartButton onClick={openCheckoutMenu}>
+            <CartButton onClick={() => dispatch({type: 'openCloseCheckout'})}>
                 <img src='./cart.svg' alt='cart' />
                 {productsInCart}
             </CartButton>

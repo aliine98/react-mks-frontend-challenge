@@ -37,7 +37,7 @@ export default function ProductCard({product}:{product:productData}) {
                 onClick={() => {
                     if (state.selectedProducts.includes(product)) return;
                     dispatch({type:'addProduct',product:product});
-                    dispatch({type:'updateProductsQty',newQty: {id:product.id,price: Number(product.price)}});
+                    dispatch({type:'updateProductsPrices',newPrice: {id: product.id, price: Number(product.price)}});
                 }}>
                     <img src='./shopping-bag.svg' alt='shopping bag' />
                     Comprar

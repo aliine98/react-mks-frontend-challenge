@@ -74,8 +74,8 @@ export default function Checkout() {
     const [totalPrice,setTotalPrice] = useState(0);
 
     useEffect(() => {
-        setTotalPrice(state.productsQty.reduce((acc:number,item:{id:number,price:number}) => acc + item?.price,0));
-    },[state.selectedProducts, state.productsQty,totalPrice]);
+        setTotalPrice(state.productsPrices.reduce((acc:number,item:{id:number,price:number}) => acc + item?.price,0));
+    },[state.selectedProducts, state.productsPrices]);
 
     return (
         <>
