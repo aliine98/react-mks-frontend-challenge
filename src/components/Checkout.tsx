@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { styled } from 'styled-components';
+import styled from 'styled-components';
 import { productData } from '../api/ProductData';
 import { StoreContext } from './Store';
 import CartItem from './CartItem';
