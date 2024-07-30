@@ -1,9 +1,8 @@
 export type productData = {
     id: number;
-    name: string;
-    brand: string;
+    title: string;
     description: string;
     price: string;
-    photo: string;
+    image: string;
     quantity: number;
 };

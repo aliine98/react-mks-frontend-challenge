@@ -89,31 +89,32 @@ const QuantityButton = styled.button`
     }
 `;
 
-export default function CartItem({product}:{product: productData}) {
-    const {dispatch} = useContext(StoreContext);
+export default function CartItem({ product }: { product: productData }) {
+    const { dispatch } = useContext(StoreContext);
     const [productQty, setProductQty] = useState(1);
 
-    useEffect(() => dispatch({type:'updateProductsPrices',newPrice:{id:product.id,price:Number(product.price) * productQty}}),[productQty,dispatch,product]);
+    useEffect(
+        () => dispatch({ type: 'updateProductsPrices', newPrice: { id: product.id, price: Number(product.price) * productQty } }),
+        [productQty, dispatch, product]
+    );
 
     function deleteProduct() {
-        dispatch({type: 'deleteProduct', product: product});
-        dispatch({type:'deleteProductPrice', product: product});
+        dispatch({ type: 'deleteProduct', product: product });
+        dispatch({ type: 'deleteProductPrice', product: product });
     }
 
     return (
         <>
             <CartProduct>
                 <DeleteButton onClick={() => deleteProduct()}>X</DeleteButton>
-                <img src={product.photo} width='90' height='90' alt={product.name} />
-                <Title>
-                    {product.brand} {product.name}
-                </Title>
+                <img src={product.image} width='90' height='90' alt={product.title} />
+                <Title>{product.title}</Title>
                 <Wrapper>
                     <div>
                         <QuantityButton
                             className='minus'
                             onClick={() => {
-                                if(productQty > 1) setProductQty((productQty) => productQty - 1);
+                                if (productQty > 1) setProductQty(productQty => productQty - 1);
                             }}>
                             -
                         </QuantityButton>
@@ -128,12 +129,12 @@ export default function CartItem({product}:{product: productData}) {
                         <QuantityButton
                             className='plus'
                             onClick={() => {
-                                setProductQty((productQty) => productQty + 1);
+                                setProductQty(productQty => productQty + 1);
                             }}>
                             +
                         </QuantityButton>
                     </div>
-                    <PriceTag className='checkout-price'>R${Number(product.price) * productQty}</PriceTag>
+                    <PriceTag className='checkout-price'>${Number(product.price) * productQty}</PriceTag>
                 </Wrapper>
             </CartProduct>
         </>

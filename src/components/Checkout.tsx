@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState} from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import { productData } from '../api/ProductData';
 import { StoreContext } from './Store';
@@ -71,17 +71,17 @@ const CheckoutPurchaseButton = styled.button`
 
 export default function Checkout() {
     const { state, dispatch } = useContext(StoreContext);
-    const [totalPrice,setTotalPrice] = useState(0);
+    const [totalPrice, setTotalPrice] = useState(0);
 
     useEffect(() => {
-        setTotalPrice(state.productsPrices.reduce((acc:number,item:{id:number,price:number}) => acc + item?.price,0));
-    },[state.selectedProducts, state.productsPrices]);
+        setTotalPrice(state.productsPrices.reduce((acc: number, item: { id: number; price: number }) => acc + item?.price, 0));
+    }, [state.selectedProducts, state.productsPrices]);
 
     return (
         <>
             <CheckoutMenu className={state.isOpen ? 'open' : ''}>
                 <Wrapper>
-                    <CheckoutTitle>Carrinho de compras</CheckoutTitle>
+                    <CheckoutTitle>Cart</CheckoutTitle>
                     <CloseButton onClick={() => dispatch({ type: 'openCloseCheckout' })}>X</CloseButton>
                 </Wrapper>
                 <CartList>
@@ -91,9 +91,9 @@ export default function Checkout() {
                 </CartList>
                 <Wrapper>
                     <h3>Total:</h3>
-                    <TotalPrice>R${totalPrice}</TotalPrice>
+                    <TotalPrice>${totalPrice}</TotalPrice>
                 </Wrapper>
-                <CheckoutPurchaseButton>Finalizar Compra</CheckoutPurchaseButton>
+                <CheckoutPurchaseButton>Checkout</CheckoutPurchaseButton>
             </CheckoutMenu>
         </>
     );

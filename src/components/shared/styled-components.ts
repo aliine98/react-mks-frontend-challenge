@@ -7,9 +7,10 @@ export const ProductsGrid = styled.ul`
     display: grid;
     gap: 1.5rem;
     justify-items: center;
-    margin: 1.2rem auto;
+    margin: 1.2rem;
     @media screen and (min-width: 630px) {
         grid-template-columns: repeat(2, 1fr);
+        margin: 1.2rem auto;
     }
 
     @media screen and (min-width: 1000px) {
@@ -27,7 +28,7 @@ export const Card = styled.li`
     padding: 10px 15px 0;
     border-radius: 8px;
     box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.14);
-    max-width: 250px;
+    max-width: fit-content;
     display: grid;
     position: relative;
 `;
